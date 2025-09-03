@@ -13,19 +13,13 @@ deps_config := \
 	usr/Kconfig \
 	kernel/Kconfig.kexec \
 	arch/Kconfig \
-	arch/arm64/Kconfig \
-	arch/arm64/Kconfig.platforms \
+	arch/x86/Kconfig \
+	arch/x86/xen/Kconfig \
+	arch/x86/Kconfig.cpu \
+	arch/x86/events/Kconfig \
 	kernel/Kconfig.hz \
+	kernel/livepatch/Kconfig \
 	kernel/power/Kconfig \
-	drivers/cpuidle/Kconfig \
-	drivers/cpuidle/Kconfig.arm \
-	drivers/cpuidle/Kconfig.mips \
-	drivers/cpuidle/Kconfig.powerpc \
-	drivers/cpuidle/Kconfig.riscv \
-	drivers/cpufreq/Kconfig \
-	drivers/cpufreq/Kconfig.x86 \
-	drivers/cpufreq/Kconfig.arm \
-	drivers/cpufreq/Kconfig.powerpc \
 	drivers/acpi/Kconfig \
 	drivers/acpi/nfit/Kconfig \
 	drivers/acpi/numa/Kconfig \
@@ -33,9 +27,20 @@ deps_config := \
 	drivers/acpi/dptf/Kconfig \
 	drivers/acpi/arm64/Kconfig \
 	drivers/acpi/pmic/Kconfig \
-	arch/arm64/kvm/Kconfig \
+	drivers/cpufreq/Kconfig \
+	drivers/cpufreq/Kconfig.x86 \
+	drivers/cpufreq/Kconfig.arm \
+	drivers/cpufreq/Kconfig.powerpc \
+	drivers/cpuidle/Kconfig \
+	drivers/cpuidle/Kconfig.arm \
+	drivers/cpuidle/Kconfig.mips \
+	drivers/cpuidle/Kconfig.powerpc \
+	drivers/cpuidle/Kconfig.riscv \
+	drivers/idle/Kconfig \
+	arch/x86/kvm/Kconfig \
 	virt/kvm/Kconfig \
-	kernel/livepatch/Kconfig \
+	arch/x86/Kconfig.cpufeatures \
+	arch/x86/Kconfig.assembler \
 	kernel/gcov/Kconfig \
 	scripts/gcc-plugins/Kconfig \
 	kernel/module/Kconfig \
@@ -1656,8 +1661,7 @@ deps_config := \
 	samples/Kconfig \
 	samples/rust/Kconfig \
 	samples/damon/Kconfig \
-	arch/arm64/Kconfig.debug \
-	drivers/hwtracing/coresight/Kconfig \
+	arch/x86/Kconfig.debug \
 	lib/kunit/Kconfig \
 	Documentation/Kconfig \
 	io_uring/Kconfig \
@@ -1665,7 +1669,7 @@ deps_config := \
 $(autoconfig): $(deps_config)
 $(deps_config): ;
 
-ifneq "$(ARCH)" "arm64"
+ifneq "$(ARCH)" "x86"
 $(autoconfig): FORCE
 endif
 
@@ -1673,11 +1677,11 @@ ifneq "$(KERNELVERSION)" "6.17.0-rc4"
 $(autoconfig): FORCE
 endif
 
-ifneq "$(CC)" "x86_64-elf-gcc"
+ifneq "$(CC)" "gcc"
 $(autoconfig): FORCE
 endif
 
-ifneq "$(LD)" "x86_64-elf-ld"
+ifneq "$(LD)" "ld"
 $(autoconfig): FORCE
 endif
 
@@ -1689,15 +1693,15 @@ ifneq "$(RUSTC)" "rustc"
 $(autoconfig): FORCE
 endif
 
-ifneq "$(CC_VERSION_TEXT)" "x86_64-elf-gcc (GCC) 15.2.0"
+ifneq "$(CC_VERSION_TEXT)" "gcc (Ubuntu 9.4.0-1ubuntu1~20.04.2) 9.4.0"
 $(autoconfig): FORCE
 endif
 
-ifneq "$(NM)" "x86_64-elf-nm"
+ifneq "$(NM)" "nm"
 $(autoconfig): FORCE
 endif
 
-ifneq "$(OBJCOPY)" "x86_64-elf-objcopy"
+ifneq "$(OBJCOPY)" "objcopy"
 $(autoconfig): FORCE
 endif
 
@@ -1713,11 +1717,11 @@ ifneq "$(BINDGEN)" "bindgen"
 $(autoconfig): FORCE
 endif
 
-ifneq "$(SRCARCH)" "arm64"
+ifneq "$(SRCARCH)" "x86"
 $(autoconfig): FORCE
 endif
 
-ifneq "$(AR)" "x86_64-elf-ar"
+ifneq "$(AR)" "ar"
 $(autoconfig): FORCE
 endif
 
