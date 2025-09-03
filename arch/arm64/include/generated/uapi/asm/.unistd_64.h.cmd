@@ -1,0 +1,1 @@
+savedcmd_arch/arm64/include/generated/uapi/asm/unistd_64.h := sh ./scripts/syscallhdr.sh --emit-nr  --abis common,64,renameat,rlimit,memfd_secret arch/arm64/tools/syscall_64.tbl arch/arm64/include/generated/uapi/asm/unistd_64.h

@@ -1,0 +1,1 @@
+savedcmd_arch/arm64/include/generated/asm/syscall_table_64.h := sh ./scripts/syscalltbl.sh  --abis common,64,renameat,rlimit,memfd_secret arch/arm64/tools/syscall_64.tbl arch/arm64/include/generated/asm/syscall_table_64.h
